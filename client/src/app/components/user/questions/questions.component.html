@@ -1,0 +1,61 @@
+<div class="container-fluid mt-5">
+    <div class="row">
+        <button appFilterMenu
+            class="btn btn-light w-25 ms-auto position-absolute top-20 end-0 d-block d-lg-none mt-3 me-2">
+            <i class="bi bi-filter"></i>
+        </button>
+        <div class="col-lg-3 d-lg-block d-none order-lg-2 mt-lg-5 mt-3 ps-lg-5 ps-4 mb-4" id="filterOption">
+            <h4>Filter By</h4>
+            <div class="form-check pb-2">
+                <input class="form-check-input" type="radio" name="filter" id="filterRadio1" checked (click)="receiveFilterValue('All')">
+                <label class="form-check-label" for="filterRadio1">
+                    All questions
+                </label>
+            </div>
+            <div class="form-check pb-2">
+                <input class="form-check-input" type="radio" name="filter" id="filterRadio2" (click)="receiveFilterValue('No answers')">
+                <label class="form-check-label" for="filterRadio2">
+                    No Answers
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="filter" id="filterRadio3" (click)="receiveFilterValue('No accepted answers')">
+                <label class="form-check-label" for="filterRadio3">
+                    No Accepted Answers
+                </label>
+            </div>
+            <h4 class="mt-lg-5 mt-4">Sort By</h4>
+            <div class="form-check pb-2">
+                <input class="form-check-input" type="radio" name="sort" id="sortRadio1" checked (click)="receiveSortValue('Newest')">
+                <label class="form-check-label" for="sortRadio1">
+                    Newest
+                </label>
+            </div>
+            <div class="form-check pb-2">
+                <input class="form-check-input" type="radio" name="sort" id="sortRadio2" (click)="receiveSortValue('Most Viewed')">
+                <label class="form-check-label" for="sortRadio2">
+                    Most Viewed
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="sort" id="sortRadio3" (click)="receiveSortValue('Least Viewed')">
+                <label class="form-check-label" for="sortRadio3">
+                    Least Viewed
+                </label>
+            </div>
+        </div>
+        <div class="col-lg-9 col-12 order-lg-1 mt-lg-3 mt-3">
+            <h2 class=" ms-2 mt-lg-3">Questions</h2>
+            <div class="container mt-lg-3 mt-4">
+                <app-question-container *ngFor="let question of questions" [title]="question.title"
+                    [user]="question.user.username" [answerCount]="question.answerCount" [askedTime]="question.date"
+                    [views]="question.views" [profile_pic]="question.user.profile_pic" [ques_id]="question._id"
+                    [answerCount]="question.answers.length" [tags]="question.tags" [userId]="question.user._id">
+                </app-question-container>
+            </div>
+            <mat-paginator [length]="totalCount" [pageSize]="pageSize" [pageIndex]="pageIndex"
+                [pageSizeOptions]="[5, 10, 25, 100]" (page)="onPageChange($event)" aria-label="Select page">
+            </mat-paginator>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="card my-3 shadow">
+    <div class="card-body">
+        <p class="card-title fw-bold fs-6" [routerLink]="['/question', ques_id]" style="cursor: pointer;">{{title}}</p>
+        <p class="card-text text-truncate">With supporting text below as a natural lead-in to additional
+            content.</p>
+        <span class="badge bg-primary me-2" *ngFor="let tag of tags"> {{tag.name}}</span>
+        <div class="d-flex justify-content-between mt-2">
+            <span>{{answerCount}} answers</span>
+            <span>{{views ? views : 0}} views</span>
+            <span>asked {{askedTime | dateToMinutes}} ago</span>
+        </div>
+    </div>
+</div>

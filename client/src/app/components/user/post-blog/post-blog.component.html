@@ -1,0 +1,41 @@
+<div class="container py-4 mt-5">
+    <p class="ps-3 fw-bold fs-3">Add a New Blog</p>
+    <div class="col-12 px-3 py-3 mt-4 border rounded shadow">
+        <form (ngSubmit)="askQuestion()" [formGroup]="blog">
+            <div class="mb-3">
+                <label for="titleInput" class="form-label fw-bold mb-0">Title</label>
+                <p class="p-0 m-0 mb-1 text-small" style="font-size: 13px;">Be specific and imagine you are asking a
+                    question to another person</p>
+                <input type="text" class="form-control" id="titleInput" formControlName="title" maxlength="100">
+            </div>
+
+            <div class="mb-3">
+                <label for="" class="form-label fw-bold mb-0">What are the details of your blog?</label>
+                <p class="p-0 m-0 mb-1 text-small" style="font-size: 13px;">Introduce the blog and expand on what you
+                    put in the title.</p>
+                <quill-editor [(ngModel)]="editorContent" [style.height.px]="300" [modules]="editorOptions"
+                    formControlName="details"></quill-editor>
+            </div>
+            <label for="" class="form-label fw-bold mb-0">Tags</label>
+            <p class="p-0 m-0 mb-1 text-small" style="font-size: 13px;">Add tags to describe what your question is about
+            </p>
+            <mat-form-field class="" appearance="fill" style="width: 80vw;">
+                <mat-label>Tags</mat-label>
+                <mat-chip-grid #chipGrid aria-label="Enter tags">
+                    <mat-chip-row *ngFor="let tag of tags" (removed)="remove(tag)" [editable]="true"
+                        (edited)="edit(tag, $event)" [aria-description]="'press enter to edit ' + tag">
+                        {{tag}}
+                        <button matChipRemove [attr.aria-label]="'remove ' + tag">
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                    </mat-chip-row>
+                    <input placeholder="Add Tags ..." [matChipInputFor]="chipGrid"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                        (matChipInputTokenEnd)="add($event)" />
+                </mat-chip-grid>
+            </mat-form-field>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <p>{{editorContent}}</p>
+    </div>
+</div>
